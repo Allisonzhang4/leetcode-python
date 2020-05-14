@@ -1,0 +1,225 @@
+859. Buddy Strings
+Given two strings A and B of lowercase letters, return true if and only if we can swap two letters in A so that the result equals B.
+
+ 
+
+Example 1:
+
+Input: A = "ab", B = "ba"
+Output: true
+Example 2:
+
+Input: A = "ab", B = "ab"
+Output: false
+Example 3:
+
+Input: A = "aa", B = "aa"
+Output: true
+
+
+class Solution:
+    def buddyStrings(self, A: str, B: str) -> bool:
+        if len(A) != len(B): return False
+        if A == B: #only they have repeated strings inside can we swap them
+            return len(A) - len(set(A)) != 0
+        
+        indices = []
+        count = 0
+        
+        for i in range(len(A)):
+            if A[i] != B[i]:
+                count +=1
+                indices.append(i)#store the non-equal values' indices
+                
+            if count > 2: return False #only can swap two letters
+            
+        return A[indices[0]] == B[indices[1]] and A[indices[1]] == B[indices[0]]
+        
+        ********************************************************************************************************
+        
+        
+        
+        
+        21. Merge Two Sorted Lists
+
+
+Share
+Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.
+
+Example:
+
+Input: 1->2->4, 1->3->4
+Output: 1->1->2->3->4->4
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        a =  b =  ListNode(0)
+        while l1 and l2:
+            if l1.val < l2.val: # determine which is smaller
+                a.next = l1
+                l1 = l1.next# look at the next value and compare again
+            else:
+                a.next = l2
+                l2 = l2.next
+            a = a.next
+            
+        a.next = l1 or l2 #因为总会剩余最后一个在任意一个list node里面 
+        
+        return b.next
+                
+ **********************************************************************************************
+ 
+ 
+ 121. Best Time to Buy and Sell Stock
+Easy
+
+4579
+
+206
+
+Add to List
+
+Share
+Say you have an array for which the ith element is the price of a given stock on day i.
+
+If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.
+
+Note that you cannot sell a stock before you buy one.
+
+Example 1:
+
+Input: [7,1,5,3,6,4]
+Output: 5
+Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+             Not 7-1 = 6, as selling price needs to be larger than buying price.
+Example 2:
+
+Input: [7,6,4,3,1]
+Output: 0
+Explanation: In this case, no transaction is done, i.e. max profit = 0.
+
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        minip = float('inf')
+        profit = [0]
+        for i in prices:
+            profit.append(max(0,i-minip))
+            minip = min(i,minip)
+        return max(profit)
+        
+  ****************************************************************************************88
+  
+  
+  86. Partition List
+Medium
+
+1120
+
+279
+
+Add to List
+
+Share
+Given a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or equal to x.
+
+You should preserve the original relative order of the nodes in each of the two partitions.
+
+Example:
+
+Input: head = 1->4->3->2->5->2, x = 3
+Output: 1->2->2->4->3->5
+
+class Solution(object):
+    def partition(self, head, x):
+        """
+        :type head: ListNode
+        :type x: int
+        :rtype: ListNode
+        """
+        before = before_head = ListNode(0)#initialize two nodes
+        after = after_head = ListNode(0)
+        
+        while head:
+            if head.val < x:
+                before.next = head
+                before = before.next
+            
+            else:
+                after.next = head
+                after = after.next
+                
+            head = head.next
+            
+            
+            15. 3Sum
+Medium
+
+6319
+
+760
+
+Add to List
+
+Share
+Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
+
+Note:
+
+The solution set must not contain duplicate triplets.
+
+Example:
+
+Given array nums = [-1, 0, 1, 2, -1, -4],
+
+A solution set is:
+[
+  [-1, 0, 1],
+  [-1, -1, 2]
+]
+
+
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        nums.sort()
+        N, result = len(nums), []
+        for i in range(N):
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+            target = nums[i]*-1
+            s,e = i+1, N-1
+            while s<e:
+                if nums[s]+nums[e] == target:
+                    result.append([nums[i], nums[s], nums[e]])
+                    s = s+1
+                    while s<e and nums[s] == nums[s-1]:
+                        s = s+1
+                elif nums[s] + nums[e] < target:
+                    s = s+1
+                else:
+                    e = e-1
+        return result
+        
+        
+        
+        ****************************************************************8
+        
+        after.next = None
+        before.next = after_head.next
+        
+        return before_head.next
+        
+        
+        ******************************************************************************
+            
+            
+        
