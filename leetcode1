@@ -260,7 +260,33 @@ class Solution:
         return a.most_common(1)[0][0] #a is a list with a form like [(word,frequency)]
         
 
+****************************************************************************************************************
 
+349. Intersection of Two Arrays
+
+class Solution:
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        return set([i for i in nums1 if i in nums2])
+        
+*********************************************************************************************************************
+
+
+415. Add Strings
+
+
+class Solution:
+    def addStrings(self, num1: str, num2: str) -> str:
+        def convert(c): 
+            return ord(c)-ord('0')# ord() convert every string into a unicode. ord(0)=48, ord(1)=49,ord(2)=50....they are in an increase order and minus 0 give us the relative distance of this number from 0
+        x1=x2=0    
+        for i in num1:
+            x1=x1*10+ convert(i)# iterate every element in num1
+        for j in num2:
+            x2=x2*10+convert(j)
+        x=x1+x2
+        return str(x)
+        
+        
 
             
             
